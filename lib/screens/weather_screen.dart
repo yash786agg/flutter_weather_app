@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/services/location.dart';
+import 'package:weatherapp/utils/popup_menu_options.dart';
 import 'package:weatherapp/utils/progress_dialog.dart';
 
-class TodayWeather extends StatefulWidget {
+class WeatherScreen extends StatefulWidget {
   @override
-  _TodayWeatherState createState() => _TodayWeatherState();
+  _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-class _TodayWeatherState extends State<TodayWeather>
+class _WeatherScreenState extends State<WeatherScreen>
     with WidgetsBindingObserver {
   LocationServices locationServices = LocationServices();
   double latitude;
@@ -86,18 +87,53 @@ class _TodayWeatherState extends State<TodayWeather>
       getLocation();
     }
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Weather App'),
+        centerTitle: false,
+        textTheme: TextTheme(
+          title: TextStyle(
+            color: Color(0xFF414141),
+            fontSize: 17.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          PopUpMenuOptions(
+            onSelected: (OptionsMenu result) {
+              switch (result) {
+                case OptionsMenu.changeCity:
+                  print('PopUpMenuOptions Change City cliked!!');
+                  break;
+                case OptionsMenu.settings:
+                  print('PopUpMenuOptions settings cliked!!');
+                  break;
+              }
+            },
+          ),
+        ],
+        backgroundColor: Colors.black38,
+      ),
       body: SafeArea(
         child: Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[],
-            ),
+          margin: EdgeInsets.symmetric(vertical: 40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                'MOUNTAIN VIEW',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black38,
     );
   }
 

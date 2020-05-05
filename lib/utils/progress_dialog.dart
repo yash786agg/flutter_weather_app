@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//Reference Link:- https://pub.dev/packages/progress_dialog
 enum ProgressDialogType { Normal, Download }
 
 String _dialogMessage = "Loading...";

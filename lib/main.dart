@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/screens/todays_weather.dart';
+import 'package:weatherapp/screens/routes.dart';
+import 'package:weatherapp/screens/weather_screen.dart';
 
 void main() => runApp(
       MaterialApp(
-        initialRoute: '/',
-        routes: {
-          '/': (context) => TodayWeather(),
-        },
+        home: WeatherScreen(),
+        routes: Routes.mainRoute,
       ),
     );
