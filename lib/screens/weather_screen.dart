@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/services/location.dart';
 import 'package:weatherapp/utils/popup_menu_options.dart';
 import 'package:weatherapp/utils/progress_dialog.dart';
+import 'package:weatherapp/widgets/weather_value.dart';
 
 class WeatherScreen extends StatefulWidget {
   @override
@@ -111,25 +112,206 @@ class _WeatherScreenState extends State<WeatherScreen>
             },
           ),
         ],
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
       ),
       body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(vertical: 40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                'MOUNTAIN VIEW',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'MOUNTAIN VIEW',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    'CLEAR SKY',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF414141),
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Icon(
+                    const IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                    color: Colors.white,
+                    size: 70.0,
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Text(
+                    '14°C',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 72.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WeatherValue(
+                        weatherText: 'max',
+                        weatherTextValue: '14°C',
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Container(
+                          width: 1.0,
+                          height: 35.0,
+                          color: Color(0xFF414141),
+                        ),
+                      ),
+                      WeatherValue(
+                        weatherText: 'min',
+                        weatherTextValue: '2°C',
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        WeatherValue(
+                          weatherText: 'max',
+                          weatherIcon:
+                              IconData(0xf00d, fontFamily: 'WeatherIcons'),
+                          weatherTextValue: '14°C',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WeatherValue(
+                        weatherText: 'wind speed',
+                        weatherIcon: null,
+                        weatherTextValue: '4.76 ms/c',
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Container(
+                          width: 1.0,
+                          height: 35.0,
+                          color: Color(0xFF414141),
+                        ),
+                      ),
+                      WeatherValue(
+                        weatherText: 'wind speed',
+                        weatherIcon: null,
+                        weatherTextValue: '4.76 ms/c',
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
