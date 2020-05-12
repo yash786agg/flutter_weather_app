@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp/datasource/remote/api_client.dart';
 import 'package:weatherapp/services/location.dart';
+import 'package:weatherapp/utils/constants.dart';
 import 'package:weatherapp/utils/popup_menu_options.dart';
 import 'package:weatherapp/utils/progress_dialog.dart';
 import 'package:weatherapp/widgets/weather_value.dart';
+import 'package:http/http.dart' as http;
+import 'package:weatherapp/domain/model/WeatherData.dart';
 
 class WeatherScreen extends StatefulWidget {
+  final WeatherApiClient weatherApiClient = WeatherApiClient(
+    apiKey: Constant.openWeatherMapApiKey,
+    httpClient: http.Client(),
+  );
+
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
 }
@@ -39,6 +48,24 @@ class _WeatherScreenState extends State<WeatherScreen>
         print('getLocation latitude: ${locationData.longitude}');
         latitude = locationData.latitude;
         longitude = locationData.longitude;
+
+        WeatherData weatherData =
+            await widget.weatherApiClient.fetchWeatherData(
+          latitude: latitude,
+          longitude: longitude,
+        );
+
+        print('weatherData name: ${weatherData.name}');
+        print('weatherData temp: ${weatherData.temp}');
+        print('weatherData datetime: ${weatherData.datetime}');
+        print('weatherData humidity: ${weatherData.humidity}');
+        print('weatherData sunrise: ${weatherData.sunrise}');
+        print('weatherData sunset: ${weatherData.sunset}');
+        print('weatherData sunset: ${weatherData.tempDescription}');
+        print('weatherData tempIcon: ${weatherData.tempIcon}');
+        print('weatherData tempMax: ${weatherData.tempMax}');
+        print('weatherData tempMin: ${weatherData.tempMin}');
+        print('weatherData windSpeed: ${weatherData.windSpeed}');
 
         await _progressDialog.hide();
       } else
