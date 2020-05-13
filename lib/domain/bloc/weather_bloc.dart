@@ -17,10 +17,8 @@ class WeatherBloc {
   Stream<WeatherData> get weatherData => _weatherDataFetcher.stream;
 
   void _fetchWeatherData() async {
-    WeatherData weatherData = await weatherRepository.weatherApiClient
-        .fetchWeatherData(
-            latitude: _fetchWeather.latitude,
-            longitude: _fetchWeather.longitude);
+    WeatherData weatherData = await weatherRepository.getWeatherData(
+        latitude: _fetchWeather.latitude, longitude: _fetchWeather.longitude);
 
     _weatherDataFetcher.sink.add(weatherData);
   }

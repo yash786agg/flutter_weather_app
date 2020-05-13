@@ -8,7 +8,7 @@ import 'package:weatherapp/utils/constants.dart';
 
 class WeatherApiClient {
   static const baseUrl = 'http://api.openweathermap.org/data/2.5';
-  var logger = Logger();
+  //var logger = Logger();
 
   WeatherApiClient({
     @required this.apiKey,
@@ -25,7 +25,8 @@ class WeatherApiClient {
     final requestedUrl =
         '$baseUrl/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
 
-    logger.i(Constant.loggerMessage, "fetching:  $requestedUrl");
+    //logger.i(Constant.loggerMessage, "fetchWeatherData:  $requestedUrl");
+    print('fetchWeatherData:  $requestedUrl');
 
     final response = await this.httpClient.get(requestedUrl);
     if (response.statusCode != 200)
@@ -34,9 +35,36 @@ class WeatherApiClient {
 
     final weatherJson = json.decode(response.body);
 
-    logger.i(Constant.loggerMessage,
-        'WeatherData Success: ${weatherJson.toString()}');
+    /*logger.i(Constant.loggerMessage,
+        'WeatherData Success: ${weatherJson.toString()}');*/
+
+    print('WeatherData Success: ${weatherJson.toString()}');
 
     return WeatherData.fromWeatherJson(weatherJson);
+  }
+
+  Future<List<WeatherData>> fetchForecastData({
+    @required double latitude,
+    @required double longitude,
+  }) async {
+    final requestedUrl =
+        '$baseUrl/forecast?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
+
+    //logger.i(Constant.loggerMessage, "fetchForecastData:  $requestedUrl");
+    print('fetchForecastData:  $requestedUrl');
+
+    final response = await this.httpClient.get(requestedUrl);
+
+    if (response.statusCode != 200)
+      throw HTTPException(
+          code: response.statusCode, message: "Unable to fetch Weather Data");
+
+    final forecastJson = json.decode(response.body);
+
+    /*logger.i(Constant.loggerMessage,
+        'ForecastData Success: ${forecastJson.toString()}');*/
+    print('ForecastData Success: ${forecastJson.toString()}');
+
+    return WeatherData.fromForecastJson(forecastJson);
   }
 }

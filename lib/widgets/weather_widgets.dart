@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherapp/domain/model/Weather_data.dart';
 import 'package:weatherapp/widgets/weather_value.dart';
+import 'package:weatherapp/widgets/forecast_horizontal.dart';
 
 class WeatherWidget extends StatelessWidget {
   WeatherWidget({@required this.weatherData}) : assert(weatherData != null);
@@ -84,88 +85,7 @@ class WeatherWidget extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-                WeatherValue(
-                  weatherText: 'max',
-                  weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-                  weatherTextValue: '14°C',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                ),
-              ],
-            ),
-          ),
+          ForecastHorizontal(forecastData: this.weatherData.forecastData),
           SizedBox(
             height: 40.0,
           ),

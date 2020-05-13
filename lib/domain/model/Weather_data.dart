@@ -13,6 +13,7 @@ class WeatherData {
   var datetime;
   var sunrise;
   var sunset;
+  List<WeatherData> forecastData = [];
 
   WeatherData({
     this.tempDescription,
@@ -26,6 +27,7 @@ class WeatherData {
     this.datetime,
     this.sunrise,
     this.sunset,
+    this.forecastData,
   });
 
   static WeatherData fromWeatherJson(Map<String, dynamic> json) {
@@ -43,6 +45,19 @@ class WeatherData {
       sunrise: json['sys']['sunrise'],
       sunset: json['sys']['sunset'],
     );
+  }
+
+  static List<WeatherData> fromForecastJson(Map<String, dynamic> json) {
+    final forecast = json['list'];
+    final weather = List<WeatherData>();
+    for (final item in forecast) {
+      WeatherData weatherData = WeatherData();
+      weatherData.datetime = item['dt'];
+      weatherData.temp = item['main']['temp'];
+      weatherData.tempIcon = item['weather'][0]['icon'];
+      weather.add(weatherData);
+    }
+    return weather;
   }
 
   IconData getIconData(tempIcon) {

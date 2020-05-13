@@ -16,6 +16,15 @@ class WeatherRepository {
     WeatherData weatherData = await weatherApiClient.fetchWeatherData(
         latitude: latitude, longitude: longitude);
 
+    print('getWeatherData weatherData: $weatherData}');
+
+    List<WeatherData> forecast = await weatherApiClient.fetchForecastData(
+        latitude: latitude, longitude: longitude);
+
+    print('getWeatherData forecast: $forecast}');
+
+    weatherData.forecastData = forecast;
+
     return weatherData;
   }
 }
