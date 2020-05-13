@@ -33,6 +33,8 @@ dependencies:
   logger: ^0.9.1
   # For asynchronous api call using reactiveX
   rxdart: ^0.24.0
+  # Formatting Date and time
+  intl: ^0.15.8
 
 dev_dependencies:
   flutter_test:

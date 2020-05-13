@@ -7,7 +7,7 @@ import 'package:weatherapp/domain/model/Weather_data.dart';
 import 'package:weatherapp/utils/constants.dart';
 
 class WeatherApiClient {
-  static const baseUrl = 'http://api.openweathermap.org';
+  static const baseUrl = 'http://api.openweathermap.org/data/2.5';
   var logger = Logger();
 
   WeatherApiClient({
@@ -23,7 +23,7 @@ class WeatherApiClient {
     @required double longitude,
   }) async {
     final requestedUrl =
-        '$baseUrl/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
+        '$baseUrl/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
 
     logger.i(Constant.loggerMessage, "fetching:  $requestedUrl");
 

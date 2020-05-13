@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weatherapp/datasource/remote/api_client.dart';
 import 'package:weatherapp/domain/bloc/fetch_weather_coordinates.dart';
 import 'package:weatherapp/domain/bloc/weather_bloc.dart';
@@ -106,12 +107,14 @@ class _WeatherScreenState extends State<WeatherScreen>
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Weather App'),
+        title: Text(
+          DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
+        ),
         centerTitle: false,
         textTheme: TextTheme(
           title: TextStyle(
             color: Color(0xFF414141),
-            fontSize: 17.0,
+            fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),
         ),

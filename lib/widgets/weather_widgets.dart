@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weatherapp/domain/model/Weather_data.dart';
 import 'package:weatherapp/widgets/weather_value.dart';
 
@@ -40,7 +41,7 @@ class WeatherWidget extends StatelessWidget {
             height: 20.0,
           ),
           Icon(
-            const IconData(0xf00d, fontFamily: 'WeatherIcons'),
+            this.weatherData.getIconData(this.weatherData.tempIcon),
             color: Colors.white,
             size: 70.0,
           ),
@@ -188,7 +189,10 @@ class WeatherWidget extends StatelessWidget {
               WeatherValue(
                 weatherText: 'Sunrise',
                 weatherIcon: null,
-                weatherTextValue: this.weatherData.sunrise.toString(),
+                weatherTextValue: DateFormat('h:mm a')
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        this.weatherData.sunrise * 1000))
+                    .toString(),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
@@ -201,7 +205,10 @@ class WeatherWidget extends StatelessWidget {
               WeatherValue(
                 weatherText: 'Sunset',
                 weatherIcon: null,
-                weatherTextValue: this.weatherData.sunset.toString(),
+                weatherTextValue: DateFormat('h:mm a')
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        this.weatherData.sunset * 1000))
+                    .toString(),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
