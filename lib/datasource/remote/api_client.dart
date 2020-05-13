@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:weatherapp/datasource/remote/http_exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
-import 'package:weatherapp/domain/model/WeatherData.dart';
+import 'package:weatherapp/domain/model/Weather_data.dart';
 import 'package:weatherapp/utils/constants.dart';
 
 class WeatherApiClient {

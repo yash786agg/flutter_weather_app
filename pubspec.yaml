@@ -31,6 +31,8 @@ dependencies:
   http: ^0.12.1
   # Logger prints logs
   logger: ^0.9.1
+  # For asynchronous api call using reactiveX
+  rxdart: ^0.24.0
 
 dev_dependencies:
   flutter_test:

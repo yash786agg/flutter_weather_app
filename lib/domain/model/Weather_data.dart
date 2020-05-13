@@ -1,5 +1,3 @@
-import 'package:weatherapp/main.dart';
-
 class WeatherData {
   var tempDescription;
   var tempIcon;
