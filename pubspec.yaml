@@ -35,6 +35,8 @@ dependencies:
   rxdart: ^0.24.0
   # Formatting Date and time
   intl: ^0.15.8
+  # An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
+  equatable: ^0.2.4
 
 dev_dependencies:
   flutter_test:
@@ -43,10 +45,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - images/double_ring_loading_io.gif
 
   fonts:
     - family: WeatherIcons

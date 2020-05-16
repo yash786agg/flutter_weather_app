@@ -12,11 +12,17 @@ class WeatherRepository {
   Future<WeatherData> getWeatherData({
     double latitude,
     double longitude,
+    String cityName,
   }) async {
     WeatherData weatherData = await weatherApiClient.fetchWeatherData(
-        latitude: latitude, longitude: longitude);
+        latitude: latitude, longitude: longitude, cityName: cityName);
 
     print('getWeatherData weatherData: $weatherData}');
+
+    if (cityName != null) {
+      latitude = weatherData.lat;
+      longitude = weatherData.lon;
+    }
 
     List<WeatherData> forecast = await weatherApiClient.fetchForecastData(
         latitude: latitude, longitude: longitude);

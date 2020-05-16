@@ -42,23 +42,5 @@ class ForecastHorizontal extends StatelessWidget {
           padding: EdgeInsets.only(left: 10, right: 10),
           itemCount: this.forecastData.length),
     );
-    /*SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          WeatherValue(
-            weatherText: 'max',
-            weatherIcon: IconData(0xf00d, fontFamily: 'WeatherIcons'),
-            weatherTextValue: '14°C',
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-          ),
-        ],
-      ),
-    );*/
   }
 }

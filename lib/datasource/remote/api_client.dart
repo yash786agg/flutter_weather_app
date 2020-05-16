@@ -19,11 +19,16 @@ class WeatherApiClient {
   final http.Client httpClient;
 
   Future<WeatherData> fetchWeatherData({
-    @required double latitude,
-    @required double longitude,
+    double latitude,
+    double longitude,
+    String cityName,
   }) async {
-    final requestedUrl =
-        '$baseUrl/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
+    String requestedUrl = "";
+    if (cityName != null)
+      requestedUrl = '$baseUrl/weather?q=$cityName&appid=$apiKey&units=metric';
+    else
+      requestedUrl =
+          '$baseUrl/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
 
     //logger.i(Constant.loggerMessage, "fetchWeatherData:  $requestedUrl");
     print('fetchWeatherData:  $requestedUrl');

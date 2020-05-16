@@ -17,10 +17,17 @@ class WeatherBloc {
   Stream<WeatherData> get weatherData => _weatherDataFetcher.stream;
 
   void _fetchWeatherData() async {
-    WeatherData weatherData = await weatherRepository.getWeatherData(
-        latitude: _fetchWeather.latitude, longitude: _fetchWeather.longitude);
+    try {
+      WeatherData weatherData = await weatherRepository.getWeatherData(
+          latitude: _fetchWeather.latitude,
+          longitude: _fetchWeather.longitude,
+          cityName: _fetchWeather.cityName);
 
-    _weatherDataFetcher.sink.add(weatherData);
+      _weatherDataFetcher.sink.add(weatherData);
+    } catch (exception) {
+      print(
+          'FWeatherBlocorecastData fetchWeatherData: ${exception.toString()}');
+    }
   }
 
   void dispatchCoordinates(FetchWeather fetchWeather) {

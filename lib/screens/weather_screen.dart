@@ -6,11 +6,10 @@ import 'package:weatherapp/domain/bloc/weather_bloc.dart';
 import 'package:weatherapp/domain/model/Weather_data.dart';
 import 'package:weatherapp/domain/repository/weather_repository.dart';
 import 'package:weatherapp/services/location.dart';
+import 'package:weatherapp/utils/change_city_dialog.dart';
 import 'package:weatherapp/utils/constants.dart';
 import 'package:weatherapp/utils/popup_menu_options.dart';
-import 'package:weatherapp/utils/progress_dialog.dart';
 import 'package:http/http.dart' as http;
-import 'package:weatherapp/widgets/empty_widget.dart';
 import 'package:weatherapp/widgets/weather_widgets.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -30,9 +29,9 @@ class _WeatherScreenState extends State<WeatherScreen>
   LocationServices locationServices = LocationServices();
   double latitude;
   double longitude;
+  String _cityName;
 
   AppLifecycleState _lifecycleState;
-  ProgressDialog _progressDialog;
 
   @override
   void initState() {
@@ -50,15 +49,15 @@ class _WeatherScreenState extends State<WeatherScreen>
       bool isGPSOpen = await locationServices.checkGPSAvailable();
       print('getLocation isGPSOpen: $isGPSOpen');
       if (isGPSOpen) {
-        await _progressDialog.show();
+        //await _progressDialog.show();
         var locationData = await locationServices.getLocation();
         print('getLocation latitude: ${locationData.latitude}');
         print('getLocation latitude: ${locationData.longitude}');
         latitude = locationData.latitude;
         longitude = locationData.longitude;
-        _weatherBloc.dispatchCoordinates(
-            FetchWeather(latitude: latitude, longitude: longitude));
-        await _progressDialog.hide();
+        _cityName = null;
+        _weatherBloc.dispatchCoordinates(FetchWeather(
+            latitude: latitude, longitude: longitude, cityName: _cityName));
       } else
         locationServices.openSettings(
             settingType: LocationServices.locationSettings);
@@ -93,14 +92,7 @@ class _WeatherScreenState extends State<WeatherScreen>
 
   @override
   Widget build(BuildContext context) {
-    _progressDialog = new ProgressDialog(context);
-    _progressDialog = ProgressDialog(
-      context,
-      type: ProgressDialogType.Normal,
-      isDismissible: false,
-      showLogs: true,
-    );
-
+    print("build called");
     if (_lifecycleState == AppLifecycleState.resumed) {
       print("Lifecycle state $_lifecycleState");
       getLocation();
@@ -124,9 +116,18 @@ class _WeatherScreenState extends State<WeatherScreen>
               switch (result) {
                 case OptionsMenu.changeCity:
                   print('PopUpMenuOptions Change City cliked!!');
+                  changeCityDialog();
                   break;
                 case OptionsMenu.settings:
                   print('PopUpMenuOptions settings cliked!!');
+                  /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SettingScreen();
+                      },
+                    ),
+                  );*/
                   break;
               }
             },
@@ -135,8 +136,9 @@ class _WeatherScreenState extends State<WeatherScreen>
         backgroundColor: Colors.black,
       ),
       body: SafeArea(
-        child: Scrollbar(
+        child: Center(
           child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 40.0),
             child: StreamBuilder(
               stream: _weatherBloc.weatherData,
               // ignore: missing_return
@@ -149,7 +151,9 @@ class _WeatherScreenState extends State<WeatherScreen>
                       'Error while fecthing weather data: ${snapshot.error.toString()}');
                   //_progressDialog.hide();
                 } else {
-                  return EmptyWidget();
+                  return Center(
+                      child:
+                          CircularProgressIndicator()); //return EmptyWidget();
                 }
               },
             ),
@@ -166,5 +170,23 @@ class _WeatherScreenState extends State<WeatherScreen>
     _weatherBloc.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  void changeCityDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return ChangeCityDialog(
+            onOkPressed: (text) {
+              print("changeCityDialog text: $text");
+              if (text != null) {
+                _cityName = text;
+                _weatherBloc.dispatchCoordinates(FetchWeather(
+                    latitude: 0.0, longitude: 0.0, cityName: _cityName));
+              }
+            },
+          );
+        });
   }
 }

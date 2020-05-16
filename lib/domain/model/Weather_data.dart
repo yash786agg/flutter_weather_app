@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:weatherapp/widgets/weather_icons.dart';
 
 class WeatherData {
+  var lat;
+  var lon;
   var tempDescription;
   var tempIcon;
   var temp;
@@ -16,6 +18,8 @@ class WeatherData {
   List<WeatherData> forecastData = [];
 
   WeatherData({
+    this.lat,
+    this.lon,
     this.tempDescription,
     this.tempIcon,
     this.tempMin,
@@ -33,6 +37,8 @@ class WeatherData {
   static WeatherData fromWeatherJson(Map<String, dynamic> json) {
     final weather = json['weather'][0];
     return WeatherData(
+      lat: json['coord']['lat'],
+      lon: json['coord']['lon'],
       tempDescription: weather['main'],
       tempIcon: weather['icon'],
       temp: json['main']['temp'],
