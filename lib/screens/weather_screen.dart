@@ -30,8 +30,9 @@ class _WeatherScreenState extends State<WeatherScreen>
   double latitude;
   double longitude;
   String _cityName;
+  bool gpsDialogFlag = false;
 
-  AppLifecycleState _lifecycleState;
+  //AppLifecycleState _lifecycleState;
 
   @override
   void initState() {
@@ -46,7 +47,56 @@ class _WeatherScreenState extends State<WeatherScreen>
     bool permissionStatus = await locationServices.getPermissionStatus();
     print('PermissionStatus: $permissionStatus');
     if (permissionStatus) {
-      bool isGPSOpen = await locationServices.checkGPSAvailable();
+      bool isGPSEnabled = await locationServices.isGpsServiceEnabled();
+      print('getLocation isGPSEnabled: $isGPSEnabled');
+
+      if (!isGPSEnabled) {
+        print('getLocation isGPSEnabled first: $isGPSEnabled');
+        locationServices.openSettings(
+            settingType: LocationServices.locationSettings);
+        /*if (!gpsDialogFlag) {
+          bool isGpsServiceEnabled = await locationServices.requestGpsService();
+
+          print('getLocation gpsDialogFlag second: $gpsDialogFlag');
+          print('getLocation isGpsServiceEnabled third: $isGpsServiceEnabled');
+
+          if (isGpsServiceEnabled && !gpsDialogFlag) {
+            print('getLocation gpsDialogFlag fourth');
+            gpsDialogFlag = false;
+            var locationData = await locationServices.getLocation();
+            print('getLocation latitude: ${locationData.latitude}');
+            print('getLocation latitude: ${locationData.longitude}');
+            latitude = locationData.latitude;
+            longitude = locationData.longitude;
+            _cityName = null;
+            _weatherBloc.dispatchCoordinates(FetchWeather(
+                latitude: latitude, longitude: longitude, cityName: _cityName));
+          } else {
+            print('getLocation gpsDialogFlag five');
+            gpsDialogFlag = true;
+            locationServices.openSettings(
+                settingType: LocationServices.locationSettings);
+          }
+        } else {
+          print('getLocation gpsDialogFlag second');
+          gpsDialogFlag = true;
+          locationServices.openSettings(
+              settingType: LocationServices.locationSettings);
+        }*/
+      } else {
+        print('getLocation gpsDialogFlag seven');
+        gpsDialogFlag = false;
+        var locationData = await locationServices.getLocation();
+        print('getLocation latitude: ${locationData.latitude}');
+        print('getLocation latitude: ${locationData.longitude}');
+        latitude = locationData.latitude;
+        longitude = locationData.longitude;
+        _cityName = null;
+        _weatherBloc.dispatchCoordinates(FetchWeather(
+            latitude: latitude, longitude: longitude, cityName: _cityName));
+      }
+
+      /*bool isGPSOpen = await locationServices.checkGPSAvailable();
       print('getLocation isGPSOpen: $isGPSOpen');
       if (isGPSOpen) {
         //await _progressDialog.show();
@@ -60,17 +110,22 @@ class _WeatherScreenState extends State<WeatherScreen>
             latitude: latitude, longitude: longitude, cityName: _cityName));
       } else
         locationServices.openSettings(
-            settingType: LocationServices.locationSettings);
+            settingType: LocationServices.locationSettings);*/
     } else
       locationServices.openSettings(settingType: LocationServices.appSettings);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    setState(() {
+    /*setState(() {
       _lifecycleState = state;
       print('AppLifecycleState $state');
-    });
+    });*/
+    print('AppLifecycleState didChangeAppLifecycleState $state');
+    if (state == AppLifecycleState.resumed) {
+      print("Lifecycle didChangeAppLifecycleState state $state");
+      getLocation();
+    }
   }
 
   /*@override
@@ -93,10 +148,10 @@ class _WeatherScreenState extends State<WeatherScreen>
   @override
   Widget build(BuildContext context) {
     print("build called");
-    if (_lifecycleState == AppLifecycleState.resumed) {
+    /*if (_lifecycleState == AppLifecycleState.resumed) {
       print("Lifecycle state $_lifecycleState");
       getLocation();
-    }
+    }*/
     return Scaffold(
       appBar: AppBar(
         title: Text(

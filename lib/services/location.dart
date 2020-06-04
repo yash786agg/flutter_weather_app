@@ -3,7 +3,7 @@ import 'package:location/location.dart';
 
 class LocationServices {
   PermissionStatus _permissionGranted;
-  bool _serviceEnabled;
+  //bool _serviceEnabled;
   Location location = new Location();
   static const appSettings = 'app_settings';
   static const locationSettings = 'location';
@@ -45,7 +45,15 @@ class LocationServices {
     return permissionStatus;
   }
 
-  Future<bool> checkGPSAvailable() async {
+  Future<bool> isGpsServiceEnabled() async {
+    return await location.serviceEnabled();
+  }
+
+  Future<bool> requestGpsService() async {
+    return await location.requestService();
+  }
+
+  /*Future<bool> checkGPSAvailable() async {
     bool isGPSOpen = false;
     _serviceEnabled = await location.serviceEnabled();
     print('checkGPSAvailable _serviceEnabled: $_serviceEnabled');
@@ -62,5 +70,5 @@ class LocationServices {
       isGPSOpen = true;
 
     return isGPSOpen;
-  }
+  }*/
 }
