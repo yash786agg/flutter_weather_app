@@ -30,9 +30,6 @@ class _WeatherScreenState extends State<WeatherScreen>
   double latitude;
   double longitude;
   String _cityName;
-  bool gpsDialogFlag = false;
-
-  //AppLifecycleState _lifecycleState;
 
   @override
   void initState() {
@@ -45,82 +42,32 @@ class _WeatherScreenState extends State<WeatherScreen>
 
   void getLocation() async {
     bool permissionStatus = await locationServices.getPermissionStatus();
-    print('PermissionStatus: $permissionStatus');
+    print('getLocation PermissionStatus: $permissionStatus');
     if (permissionStatus) {
       bool isGPSEnabled = await locationServices.isGpsServiceEnabled();
       print('getLocation isGPSEnabled: $isGPSEnabled');
 
-      if (!isGPSEnabled) {
+      if (isGPSEnabled) {
         print('getLocation isGPSEnabled first: $isGPSEnabled');
-        locationServices.openSettings(
-            settingType: LocationServices.locationSettings);
-        /*if (!gpsDialogFlag) {
-          bool isGpsServiceEnabled = await locationServices.requestGpsService();
-
-          print('getLocation gpsDialogFlag second: $gpsDialogFlag');
-          print('getLocation isGpsServiceEnabled third: $isGpsServiceEnabled');
-
-          if (isGpsServiceEnabled && !gpsDialogFlag) {
-            print('getLocation gpsDialogFlag fourth');
-            gpsDialogFlag = false;
-            var locationData = await locationServices.getLocation();
-            print('getLocation latitude: ${locationData.latitude}');
-            print('getLocation latitude: ${locationData.longitude}');
-            latitude = locationData.latitude;
-            longitude = locationData.longitude;
-            _cityName = null;
-            _weatherBloc.dispatchCoordinates(FetchWeather(
-                latitude: latitude, longitude: longitude, cityName: _cityName));
-          } else {
-            print('getLocation gpsDialogFlag five');
-            gpsDialogFlag = true;
-            locationServices.openSettings(
-                settingType: LocationServices.locationSettings);
-          }
-        } else {
-          print('getLocation gpsDialogFlag second');
-          gpsDialogFlag = true;
-          locationServices.openSettings(
-              settingType: LocationServices.locationSettings);
-        }*/
+        var locationData = await locationServices.getLocation();
+        print('getLocation latitude: ${locationData.latitude}');
+        print('getLocation latitude: ${locationData.longitude}');
+        latitude = locationData.latitude;
+        longitude = locationData.longitude;
+        _cityName = null;
+        _weatherBloc.dispatchCoordinates(FetchWeather(
+            latitude: latitude, longitude: longitude, cityName: _cityName));
       } else {
         print('getLocation gpsDialogFlag seven');
-        gpsDialogFlag = false;
-        var locationData = await locationServices.getLocation();
-        print('getLocation latitude: ${locationData.latitude}');
-        print('getLocation latitude: ${locationData.longitude}');
-        latitude = locationData.latitude;
-        longitude = locationData.longitude;
-        _cityName = null;
-        _weatherBloc.dispatchCoordinates(FetchWeather(
-            latitude: latitude, longitude: longitude, cityName: _cityName));
-      }
-
-      /*bool isGPSOpen = await locationServices.checkGPSAvailable();
-      print('getLocation isGPSOpen: $isGPSOpen');
-      if (isGPSOpen) {
-        //await _progressDialog.show();
-        var locationData = await locationServices.getLocation();
-        print('getLocation latitude: ${locationData.latitude}');
-        print('getLocation latitude: ${locationData.longitude}');
-        latitude = locationData.latitude;
-        longitude = locationData.longitude;
-        _cityName = null;
-        _weatherBloc.dispatchCoordinates(FetchWeather(
-            latitude: latitude, longitude: longitude, cityName: _cityName));
-      } else
         locationServices.openSettings(
-            settingType: LocationServices.locationSettings);*/
+            settingType: LocationServices.locationSettings);
+      }
     } else
       locationServices.openSettings(settingType: LocationServices.appSettings);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    /*setState(() {
-      _lifecycleState = state;
-      print('AppLifecycleState $state');
-    });*/
     print('AppLifecycleState didChangeAppLifecycleState $state');
     if (state == AppLifecycleState.resumed) {
       print("Lifecycle didChangeAppLifecycleState state $state");
@@ -128,30 +75,9 @@ class _WeatherScreenState extends State<WeatherScreen>
     }
   }
 
-  /*@override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      // user returned to our app
-      print('AppLifecycleState resumed');
-      getLocation();
-    } else if (state == AppLifecycleState.inactive) {
-      // app is inactive
-      print('AppLifecycleState inactive');
-    } else if (state == AppLifecycleState.paused) {
-      // user is about quit our app temporally
-      print('AppLifecycleState paused');
-    } else if (state == AppLifecycleState.detached) {
-      print('AppLifecycleState detached');
-    }
-  }*/
-
   @override
   Widget build(BuildContext context) {
     print("build called");
-    /*if (_lifecycleState == AppLifecycleState.resumed) {
-      print("Lifecycle state $_lifecycleState");
-      getLocation();
-    }*/
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -234,7 +160,6 @@ class _WeatherScreenState extends State<WeatherScreen>
         builder: (BuildContext context) {
           return ChangeCityDialog(
             onOkPressed: (text) {
-              print("changeCityDialog text: $text");
               if (text != null) {
                 _cityName = text;
                 _weatherBloc.dispatchCoordinates(FetchWeather(

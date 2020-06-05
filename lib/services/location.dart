@@ -49,9 +49,9 @@ class LocationServices {
     return await location.serviceEnabled();
   }
 
-  Future<bool> requestGpsService() async {
+  /* Future<bool> requestGpsService() async {
     return await location.requestService();
-  }
+  }*/
 
   /*Future<bool> checkGPSAvailable() async {
     bool isGPSOpen = false;
